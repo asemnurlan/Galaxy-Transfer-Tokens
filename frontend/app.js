@@ -3,9 +3,17 @@ const tokenAddress = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
 
 const crowdfundAbi = [
     "function createCampaign(string title, uint256 goal, uint256 duration) external",
-    "function campaignCount() public view returns (uint256)"
+    "function contribute(uint256 campaignId) external payable",
+    "function getCampaign(uint256 id) view returns (address, string, uint256, uint256, uint256, bool, bool, bool)",
+    "function campaignCount() view returns (uint256)",
+    "function campaigns(uint256) view returns (address owner, string title, uint256 goal, uint256 deadline, uint256 raised, bool active, bool goalMet, bool rewarded)"
 ];
-const tokenAbi = ["function balanceOf(address owner) view returns (uint256)"];
+
+const tokenAbi = [
+    "function balanceOf(address owner) view returns (uint256)",
+    "function symbol() view returns (string)",
+    "function decimals() view returns (uint8)"
+];
 
 let provider, signer, contract, token;
 
