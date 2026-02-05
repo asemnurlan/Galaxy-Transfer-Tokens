@@ -9,7 +9,7 @@ import "./GalaxyRewardToken.sol";
  * @notice Crowdfunding campaigns on Ethereum testnet + automatic ERC-20 reward minting.
  */
 contract GalaxyCrowdfund is ReentrancyGuard {
-    struct Campaign {
+    struct Campaign { 
         address creator;
         string title;
         uint256 goalWei;      // funding goal in wei
