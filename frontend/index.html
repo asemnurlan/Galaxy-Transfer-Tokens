@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Crowdfunding</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Galaxy Crowdfunding</h1>
+        
+        <div class="card">
+            <h3>Статус: <span id="connectionStatus">Не подключен</span></h3>
+            <p>Ваш адрес: <span id="walletAddress">0x...</span></p>
+            <button id="connectBtn" onclick="connectMetaMask()">Подключить кошелек</button>
+        </div>
+
+        <div class="card balance-section">
+            <p>Баланс ETH: <span id="ethBalance">0.00</span></p>
+            <p>Баланс GTT: <span id="rewardBalance">0.00</span></p>
+        </div>
+
+        <hr>
+
+        <div class="card">
+            <h3>Создать проект</h3>
+            <input type="text" id="title" placeholder="Название проекта">
+            <input type="number" id="goal" placeholder="Цель (ETH)">
+            <button onclick="createCampaign()">Запустить в блокчейне</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
