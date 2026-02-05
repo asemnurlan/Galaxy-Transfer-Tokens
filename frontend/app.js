@@ -18,8 +18,8 @@ async function connectMetaMask() {
             signer = await provider.getSigner();
             const address = accounts[0];
             document.getElementById('walletAddress').innerText = address.substring(0, 6) + "..." + address.substring(38);
-            document.getElementById('connectionStatus').innerText = "Подключено (Sepolia)";
-            document.getElementById('connectBtn').innerText = "Готово ✅";
+            document.getElementById('connectionStatus').innerText = "Connected (Sepolia)";
+            document.getElementById('connectBtn').innerText = "Connected ✅";
 
             contract = new ethers.Contract(crowdfundAddress, crowdfundAbi, signer);
             token = new ethers.Contract(tokenAddress, tokenAbi, signer);
@@ -27,10 +27,10 @@ async function connectMetaMask() {
 
         } catch (error) {
             console.error(error);
-            alert("Ошибка подключения. Проверьте консоль (F12)");
+            alert("Connection error. Check the console (F12)");
         }
     } else {
-        alert("Установите MetaMask!");
+        alert("Please install MetaMask!");
     }
 }
 
@@ -45,17 +45,27 @@ async function updateBalances(address) {
 }
 
 async function createCampaign() {
-    if (!contract) return alert("Сначала подключите кошелек!");
+    if (!contract) return alert("Please connect your wallet first!");
     
-    const title = document.getElementById('title').value;
-    const goal = ethers.parseEther(document.getElementById('goal').value);
-
+    const title = document.getElementById('title').value.trim();
+    const goalValue = document.getElementById('goal').value.trim();
+    
+    if (!title) return alert("Please enter a project name!");
+    if (!goalValue) return alert("Please enter a target amount!");
+    
+    if (isNaN(goalValue) || parseFloat(goalValue) <= 0) {
+        return alert("Please enter a valid number greater than 0!");
+    }
+    
     try {
+        const goal = ethers.parseEther(goalValue);
         const tx = await contract.createCampaign(title, goal, 3600); 
         await tx.wait();
-        alert("Проект успешно создан в блокчейне!");
+        alert("Campaign successfully launched on the blockchain!");
+        document.getElementById('title').value = '';
+        document.getElementById('goal').value = '';
         connectMetaMask(); 
     } catch (e) {
-        alert("Ошибка транзакции: " + e.message);
+        alert("Transaction error: " + e.message);
     }
 }
