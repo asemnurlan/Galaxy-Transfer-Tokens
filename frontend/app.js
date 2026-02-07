@@ -13,7 +13,7 @@ const CROWDFUND_ABI = [
 
 const TOKEN_ABI = [
     "function balanceOf(address owner) view returns (uint256)",
-    "function symbol() view returns (string)",
+    "function transfer(address to, uint256 amount) returns (bool)",
     "function decimals() view returns (uint8)"
 ];
 let provider;
@@ -49,7 +49,6 @@ async function connectMetaMask() {
 async function updateBalances(address) {
     if (!provider) return;
 
-    // Баланс ETH
     const ethBalance = await provider.getBalance(address);
     document.getElementById('ethBalance').innerText = 
         parseFloat(ethers.formatEther(ethBalance)).toFixed(4);
@@ -89,4 +88,51 @@ async function loadCampaigns() {
     setTimeout(() => {
         list.innerHTML = '<p>No active missions found on the current relay.</p>';
     }, 1000);
+}
+
+async function transferGTT() {
+    if (!signer) {
+        alert("Please connect MetaMask first!");
+        return;
+    }
+
+    const to = document.getElementById("transferTo").value;
+    const amount = document.getElementById("transferAmount").value;
+
+    if (!ethers.isAddress(to)) {
+        alert("Invalid recipient address!");
+        return;
+    }
+
+    if (!amount || amount <= 0) {
+        alert("Enter a valid token amount!");
+        return;
+    }
+
+    try {
+        const tokenContract = new ethers.Contract(
+            TOKEN_ADDRESS,
+            TOKEN_ABI,
+            signer
+        );
+
+        const decimals = await tokenContract.decimals();
+        const amountInWei = ethers.parseUnits(amount, decimals);
+
+        const tx = await tokenContract.transfer(to, amountInWei);
+        alert("Transaction sent! Waiting for confirmation...");
+
+        await tx.wait();
+        alert("GTT Tokens transferred successfully 🚀");
+
+        const senderAddress = await signer.getAddress();
+        updateBalances(senderAddress);
+
+        document.getElementById("transferTo").value = "";
+        document.getElementById("transferAmount").value = "";
+
+    } catch (error) {
+        console.error("Transfer failed:", error);
+        alert("Token transfer failed!");
+    }
 }

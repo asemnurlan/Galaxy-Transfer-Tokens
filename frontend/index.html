@@ -38,6 +38,26 @@
                 </div>
             </div>
         </section>
+        <section class="card transfer-section">
+    <h3>Transfer GTT Tokens</h3>
+    <div class="form-row">
+        <input 
+            type="text" 
+            id="transferTo" 
+            placeholder="Recipient Address (0x...)" 
+        />
+        <input 
+            type="number" 
+            id="transferAmount" 
+            placeholder="Amount of GTT" 
+            step="0.01"
+        />
+        <button onclick="transferGTT()" class="btn-action">
+            Transfer Tokens
+        </button>
+    </div>
+</section>
+<br>
 
         <section class="card create-section">
             <h3>Launch New Mission</h3>
