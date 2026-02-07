@@ -4,14 +4,8 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-/**
- * @title GalaxyRewardToken (GTT)
- * @notice Internal reward token for educational use only (no real monetary value).
- * Minting is restricted to the Crowdfund contract (minter).
- */
 contract GalaxyRewardToken is ERC20, Ownable {
     address public minter;
-
     error NotMinter();
     error ZeroAddress();
 
@@ -30,3 +24,5 @@ contract GalaxyRewardToken is ERC20, Ownable {
         _mint(to, amount);
     }
 }
+
+
