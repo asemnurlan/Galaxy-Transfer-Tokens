@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- -<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,6 +66,73 @@
 
         <footer class="footer">
             <p>&copy; 2026 Galaxy Crowdfunding. Built on Ethereum.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Crowdfunding | Future of Finance</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars-container"></div> <div class="container">
+        <header class="header">
+            <h1 class="glitch-text">GALAXY CROWDFUNDING</h1>
+            <div id="networkWarning" class="warning-banner" style="display: none;">
+                Please switch to **Sepolia Test Network**
+            </div>
+        </header>
+
+        <section class="grid">
+            <div class="card wallet-card">
+                <h3>Wallet Connection</h3>
+                <div class="status-box">
+                    <p>Status: <span id="connectionStatus" class="status-offline">Disconnected</span></p>
+                    <p>Address: <span id="walletAddress" class="address-text">0x...</span></p>
+                </div>
+                <button id="connectBtn" class="btn-glow" onclick="connectMetaMask()">Connect MetaMask</button>
+            </div>
+
+            <div class="card balance-card">
+                <h3>Your Assets</h3>
+                <div class="balance-item">
+                    <span>Test ETH:</span>
+                    <strong id="ethBalance">0.00</strong>
+                </div>
+                <div class="balance-item">
+                    <span>GTT Rewards:</span>
+                    <strong id="rewardBalance">0.00</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="card create-section">
+            <h3>Launch New Mission</h3>
+            <div class="form-row">
+                <input type="text" id="title" placeholder="Mission Name" required>
+                <input type="number" id="goal" placeholder="Target ETH" step="0.01" required>
+                <input type="number" id="duration" placeholder="Duration (Days)" required>
+                <button onclick="createNewCampaign()" class="btn-action">Initialize</button>
+            </div>
+        </section>
+
+        <section class="campaigns-container">
+            <h3>Active Galactic Missions</h3>
+            <div id="campaignList" class="campaign-grid">
+                <p class="loading-text">Scanning blockchain for missions...</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 Galaxy Crowdfunding. No real value.</p>
         </footer>
     </div>
 
